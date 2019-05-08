@@ -11,8 +11,7 @@ def read_data(path):
                        warn_bad_lines=False, header=None, sep=';')
 
 
-def get_vector(sentence):
-    FT_model = FastText.load(r'models\fasttext.model')
+def get_vector(sentence, FT_model):
     sentence = re.findall('[а-яё]+',  str(word_tokenize(sentence.lower())))
     vector = []
     morph = pymorphy2.MorphAnalyzer()
@@ -39,12 +38,14 @@ def get_data():
     x = []
     y = []
 
+    FT_model = FastText.load(r'models\fasttext.model')
+
     for tweet in positive[:][3]:
-        x.append(get_vector(tweet))
+        x.append(get_vector(tweet, FT_model))
         y.append(0)
 
     for tweet in negative[:][3]:
-        x.append(get_vector(tweet))
+        x.append(get_vector(tweet, FT_model))
         y.append(1)
 
     x, y = shuffle(x, y)
