@@ -4,6 +4,7 @@ import pandas as pd
 from nltk import word_tokenize
 from sklearn.utils import shuffle
 from gensim.models import FastText
+import numpy as np
 
 
 def read_data(path):
@@ -50,4 +51,4 @@ def get_data():
 
     x, y = shuffle(x, y)
 
-    return x, y
+    return np.array(x), np.array(y)
